@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 1200px; 
+      width: 90%;
+      text-align: center;
+      overflow: auto;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .column {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      width: 30%;
+      box-sizing: border-box;
+    }
+    .inputs label {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .inputs input {
+      padding: 5px;
+      margin-left: 10px;
+      width: 80px;
+    }
+    .inputs button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .inputs button:hover {
+      background-color: #45a049;
+    }
+    .solution {
+      background: #e6ffe6;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #b3ffb3;
+      margin-top: 10px;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+    }
+    .imagen{
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" id="regresar"><img src="../img/flecha.png" class="imagen"></a>
+    <h1>Calculadora</h1>
+    <!-- Primera fila -->
+    <div class="row">
+      <div class="column">
+        <h3>Variación</h3>
+        <p>Fórmula: V(n, r) = n! / (n-r)!</p>
+        <div class="inputs">
+          <label for="variacion-n">n:</label>
+          <input type="number" id="variacion-n" value="5" min="1">
+          <br>
+          <label for="variacion-r">r:</label>
+          <input type="number" id="variacion-r" value="3" min="1">
+          <br>
+          <button onclick="calcularVariacion()">Calcular</button>
+        </div>
+        <div class="solution">
+          <p id="resultado-variacion"></p>
+        </div>
+      </div>
+      <div class="column">
+        <h3>Combinación</h3>
+        <p>Fórmula: C(n, r) = n! / (r!(n-r)!)</p>
+        <div class="inputs">
+          <label for="combinacion-n">n:</label>
+          <input type="number" id="combinacion-n" value="5" min="1">
+          <br>
+          <label for="combinacion-r">r:</label>
+          <input type="number" id="combinacion-r" value="3" min="1">
+          <br>
+          <button onclick="calcularCombinacion()">Calcular</button>
+        </div>
+        <div class="solution">
+          <p id="resultado-combinacion"></p>
+        </div>
+      </div>
+      <div class="column">
+        <h3>Permutación</h3>
+        <p>Fórmula: P(n) = n!</p>
+        <div class="inputs">
+          <label for="permutacion-n">n:</label>
+          <input type="number" id="permutacion-n" value="5" min="1">
+          <br>
+          <button onclick="calcularPermutacion()">Calcular</button>
+        </div>
+        <div class="solution">
+          <p id="resultado-permutacion"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segunda fila -->
+    <div class="row">
+      <div class="column">
+        <h3>Permutaciones con datos repetidos</h3>
+        <p>Fórmula: P(n; a,b,c,...) = n! / (a! * b! * c! * ...)</p>
+        <div class="inputs">
+          <label for="repetidos-n">n:</label>
+          <input type="number" id="repetidos-n" value="6" min="1">
+          <br>
+          <label for="repetidos-valores">Valores repetidos (separados por comas):</label>
+          <input type="text" id="repetidos-valores" placeholder="Ejemplo: 2,2,1">
+          <br>
+          <button onclick="calcularRepetidos()">Calcular</button>
+        </div>
+        <div class="solution">
+          <p id="resultado-repetidos"></p>
+        </div>
+      </div>
+      <div class="column">
+        <h3>Permutación circular</h3>
+        <p>Fórmula: PC(n) = (n-1)!</p>
+        <div class="inputs">
+          <label for="circular-n">n:</label>
+          <input type="number" id="circular-n" value="5" min="2">
+          <br>
+          <button onclick="calcularCircular()">Calcular</button>
+        </div>
+        <div class="solution">
+          <p id="resultado-circular"></p>
+        </div>
+      </div>
+      <div class="column">
+        <h3>Potenciación</h3>
+        <p>Fórmula: n<sup>a</sup> = (n * n * ... * n) a veces</p>
+        <div class="inputs">
+          <label for="potenciacion-base">Base (n):</label>
+          <input type="number" id="potenciacion-base" value="2" min="0">
+          <br>
+          <label for="potenciacion-exponente">Exponente (a):</label>
+          <input type="number" id="potenciacion-exponente" value="3" min="0">
+          <br>
+          <button onclick="calcularPotenciacion()">Calcular</button>
+        </div>
+        <div class="solution">
+          <p id="resultado-potenciacion"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function factorial(n) {
+      if (n === 0 || n === 1) return 1;
+      let result = 1;
+      for (let i = 2; i <= n; i++) {
+        result *= i;
+      }
+      return result;
+    }
+
+    function calcularVariacion() {
+      const n = parseInt(document.getElementById('variacion-n').value);
+      const r = parseInt(document.getElementById('variacion-r').value);
+      const resultado = n >= r ? factorial(n) / factorial(n - r) : 'Valores inválidos.';
+      document.getElementById('resultado-variacion').textContent = `Resultado: ${resultado}`;
+    }
+
+    function calcularCombinacion() {
+      const n = parseInt(document.getElementById('combinacion-n').value);
+      const r = parseInt(document.getElementById('combinacion-r').value);
+      const resultado = n >= r ? factorial(n) / (factorial(r) * factorial(n - r)) : 'Valores inválidos.';
+      document.getElementById('resultado-combinacion').textContent = `Resultado: ${resultado}`;
+    }
+
+    function calcularPermutacion() {
+      const n = parseInt(document.getElementById('permutacion-n').value);
+      const resultado = factorial(n);
+      document.getElementById('resultado-permutacion').textContent = `Resultado: ${resultado}`;
+    }
+
+    function calcularRepetidos() {
+      const n = parseInt(document.getElementById('repetidos-n').value);
+      const valores = document.getElementById('repetidos-valores').value.split(',').map(v => parseInt(v.trim()));
+      const denominador = valores.reduce((acc, curr) => acc * factorial(curr), 1);
+      const resultado = factorial(n) / denominador;
+      document.getElementById('resultado-repetidos').textContent = `Resultado: ${resultado}`;
+    }
+
+    function calcularCircular() {
+      const n = parseInt(document.getElementById('circular-n').value);
+      const resultado = factorial(n - 1);
+      document.getElementById('resultado-circular').textContent = `Resultado: ${resultado}`;
+    }
+
+    function calcularPotenciacion() {
+      const base = parseInt(document.getElementById('potenciacion-base').value);
+      const exponente = parseInt(document.getElementById('potenciacion-exponente').value);
+      const resultado = Math.pow(base, exponente);
+      document.getElementById('resultado-potenciacion').textContent = `Resultado: ${resultado}`;
+    }
+  </script>
+</body>
+</html>
