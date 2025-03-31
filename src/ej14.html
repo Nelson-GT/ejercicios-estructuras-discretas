@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Historias Clínicas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      overflow: auto;
+    }
+    .container ul {
+      text-align: left;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .problem, .inputs, .solution {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .inputs button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .inputs button:hover {
+      background-color: #45a049;
+    }
+    .solution {
+      background: #e6ffe6;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #b3ffb3;
+      text-align: left;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+    }
+    .imagen{
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" id="regresar"><img src="../img/flecha.png" class="imagen"></a>
+    <h1>Cálculo de Historias Clínicas</h1>
+    <p> En un hospital se utilizan cinco símbolos para clasificar las historias clínicas de sus 
+        pacientes, de manera que los dos primeros son letras y los tres últimos son dígitos. 
+        Suponiendo que hay 25 letras, ¿cuántas historias clínicas podrían hacerse si: 
+    </p>
+    <ul>
+      <li>1. No hay restricciones sobre letras y números</li>
+      <li>2. Las dos letras no pueden ser iguales.</li>
+    </ul>    
+    <div class="inputs">
+      <button id="calculateBtn">Calcular</button>
+    </div>
+    <div class="solution">
+      <p><strong>Solución:</strong></p>
+      <p id="result1">Historias sin restricciones: ?</p>
+      <p id="result2">Historias con letras diferentes: ?</p>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      const totalLetters = 25;
+      const totalDigits = 10;
+      
+      // Caso 1: Sin restricciones
+      const totalCases1 = Math.pow(totalLetters, 2) * Math.pow(totalDigits, 3);
+      
+      // Caso 2: Letras diferentes
+      const totalCases2 = (totalLetters * (totalLetters - 1)) * Math.pow(totalDigits, 3);
+      
+      document.getElementById('result1').innerHTML = `Historias sin restricciones: ${totalCases1}`;
+      document.getElementById('result2').innerHTML = `Historias con letras diferentes: ${totalCases2}`;
+    });
+  </script>
+</body>
+</html>

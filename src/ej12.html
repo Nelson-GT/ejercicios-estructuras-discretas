@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Billetes de Ferrocarril</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      overflow: auto;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .problem, .inputs, .solution {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .inputs label, .inputs input {
+      display: inline-block;
+      margin: 10px auto;
+      text-align: center;
+    }
+    .inputs input {
+      width: 60px;
+    }
+    .inputs button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .inputs button:hover {
+      background-color: #45a049;
+    }
+    .solution {
+      background: #e6ffe6;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #b3ffb3;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+    }
+    .imagen{
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" id="regresar"><img src="../img/flecha.png" class="imagen"></a>
+    <h1>Billetes de Ferrocarril</h1>
+    <div class="problem">
+      <p><strong>Problema:</strong></p>
+      <p> Una línea de ferrocarril tiene <span id="numStations">25</span> estaciones. ¿Cuántos billetes diferentes habrá que 
+        imprimir si cada billete lleva impresas las estaciones de origen y destino?
+      </p>
+    </div>
+    <div class="inputs">
+      <label for="stations">Número de estaciones:</label>
+      <input type="number" id="stations" value="25" min="2">
+      <br>
+      <button id="calculateBtn">Calcular</button>
+    </div>
+    <div class="solution">
+      <p><strong>Solución:</strong></p>
+      <p id="ticketCount">Total de billetes diferentes: ?</p>
+    </div>
+  </div>
+  
+  <script>
+    function factorial(n) {
+      if (n === 0 || n === 1) return 1;
+      let result = 1;
+      for (let i = 2; i <= n; i++) {
+        result *= i;
+      }
+      return result;
+    }
+
+    function combination(n) {
+      return factorial(n) / factorial(n-2);
+    }
+  
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      const stations = parseInt(document.getElementById('stations').value);
+      
+      // Se calculan las combinaciones de elegir 2 estaciones de n disponibles
+      const ticketCount = combination(stations);
+      
+      document.getElementById('ticketCount').innerHTML = `Total de billetes diferentes: ${ticketCount}`;
+      document.getElementById('numStations').innerHTML = stations;
+    });
+  </script>
+</body>
+</html>

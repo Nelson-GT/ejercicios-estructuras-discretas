@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ejercicio de Combinatoria</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      overflow: auto;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .inputs, .solution, .problem {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .inputs label {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .inputs input {
+      padding: 5px;
+      margin-left: 10px;
+      width: 80px;
+    }
+    .inputs button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .inputs button:hover {
+      background-color: #45a049;
+    }
+    .solution {
+      background: #e6ffe6;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #b3ffb3;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+    }
+    .imagen{
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" id="regresar"><img src="../img/flecha.png" class="imagen"></a>
+    <h1>Ejercicio de Combinatoria</h1>
+    <div class="problem">
+      <p><strong>Problema:</strong></p>
+      <p>
+        ¿De cuántas maneras pueden sentarse <span id="totalDisplay">10</span> personas en un banco si hay <span id="seatsDisplay">4</span> sitios disponibles?
+      </p>
+    </div>
+    <div class="inputs">
+      <label for="nTotal">Número total de personas (n):</label>
+      <input type="number" id="nTotal" value="10" min="1">
+      <br>
+      <label for="nSeats">Número de asientos disponibles (r):</label>
+      <input type="number" id="nSeats" value="4" min="1">
+      <br>
+      <button id="calculateBtn">Calcular</button>
+    </div>
+    <div class="solution">
+      <p><strong>Solución:</strong></p>
+      <p id="result">C(10,4) × 4! = 210 × 24 = <strong>5040</strong></p>
+    </div>
+  </div>
+  
+  <script>
+    // Función para calcular el factorial
+    function factorial(n) {
+      if (n === 0 || n === 1) return 1;
+      let result = 1;
+      for (let i = 2; i <= n; i++) {
+        result *= i;
+      }
+      return result;
+    }
+
+    // Función para calcular la combinación C(n, r)
+    function combination(n, r) {
+      return factorial(n) / (factorial(r) * factorial(n - r));
+    }
+
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      const n = parseInt(document.getElementById('nTotal').value);
+      const r = parseInt(document.getElementById('nSeats').value);
+      
+      // Validar que los valores sean correctos
+      if (isNaN(n) || isNaN(r) || n < 1 || r < 1 || r > n) {
+        document.getElementById('result').textContent = 'Por favor, ingresa valores válidos. Recuerda que n debe ser mayor o igual a r y ambos positivos.';
+        return;
+      }
+      
+      // Calcular la combinación y el factorial de r (para la permutación)
+      const comb = combination(n, r);
+      const perm = factorial(r);
+      const totalWays = comb * perm;
+      
+      // Actualizar la parte del problema que muestra los valores actuales
+      document.getElementById('totalDisplay').textContent = n;
+      document.getElementById('seatsDisplay').textContent = r;
+      
+      // Mostrar la solución
+      document.getElementById('result').innerHTML = 
+        `C(${n},${r}) × ${r}! = ${comb} × ${perm} = <strong>${totalWays}</strong>`;
+    });
+  </script>
+</body>
+</html>

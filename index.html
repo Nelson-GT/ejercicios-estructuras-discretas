@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejercicio de Combinatoria</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .container {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        background: #fff;
+        padding: 20px 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        max-width: 700px;
+        width: 90%;
+        text-align: center;
+    }
+    .container-list {
+        margin: 20px 0;
+        text-align: left;
+        padding: 0 20px;
+    }
+    .lista-circulos {
+        list-style-type: none;
+        counter-reset: item;
+        padding-left: 0;
+    }
+    .lista-circulos li {
+        position: relative;
+        padding-left: 50px;
+        margin-bottom: 30px;
+    }
+    .lista-circulos li:before {
+        counter-increment: item;
+        content: counter(item);
+        position: absolute;
+        left: 0;
+        top: -5px;
+        width: 30px;
+        height: 30px;
+        background-color: #45a049;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #fff;
+        font-size: medium;
+    }
+    
+    h1 {
+        color: #333;
+        margin-bottom: 50px;
+    }
+    a {
+        text-decoration: none;
+        color: darkslategrey;
+        font-weight: bold;
+        font-size: large;
+        transition: color 0.3s;
+    }
+    a:hover {
+        color: #007BFF;
+    }
+    footer {
+        text-align: right;
+        margin-top: 20px;
+        font-size: medium;
+        color: #666;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <h1>Ejercicios prácticos:<br> Variaciones, Combinaciones y Permutaciones</h1>
+    <div class="container-list">
+        <ol class="lista-circulos">
+            <li><a href="src/ej1.html">Ejercicio de Combinatoria</a></li>
+            <li><a href="src/ej2.html">Distribución de Premios</a></li>
+            <li><a href="src/ej3.html">Cálculo de Diagonales en Polígonos</a></li>
+            <li><a href="src/ej4.html">Colocación en Fila</a></li>
+            <li><a href="src/ej5.html">Formación de Números de 4 Dígitos</a></li>
+            <li><a href="src/ej6.html">Distribución de Fechas de Cumpleaños</a></li>
+            <li><a href="src/ej7.html">Letras del Alfabeto Morse</a></li>
+            <li><a href="src/ej8.html">Arrojar Monedas</a></li>
+            <li><a href="src/ej9.html">Colocación de Libros</a></li>
+            <li><a href="src/ej10.html">Colocación de Libros (Unidades)</a></li>
+            <li><a href="src/ej11.html">Selección de Preguntas</a></li>
+            <li><a href="src/ej12.html">Billetes de Ferrocarril</a></li>
+            <li><a href="src/ej13.html">Orden de Llegada en Competición</a></li>
+            <li><a href="src/ej14.html">Cálculo de Historias Clínicas</a></li>
+        </ol>
+    </div>
+</body>
+<footer>
+    Desarrollado por: Luis León y Nelson Guerrero
+</footer>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultados al Arrojar Monedas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      overflow: auto;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .problem{
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .inputs{
+      text-align: left;
+    }
+    .inputs label, .inputs input {
+      padding: 5px;
+      margin-left: 10px;
+      width: 80px;
+      margin: 5px auto;
+      text-align: left;
+    }
+    #numCoins{
+      margin-left: 54px;
+    }
+    .inputs button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .inputs button:hover {
+      background-color: #45a049;
+    }
+    .solution ul {
+      list-style-type: none;
+      padding-left: 0;
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      background: #fafafa;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+    }
+    .imagen{
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" id="regresar"><img src="../img/flecha.png" class="imagen"></a>
+    <h1>Arrojar Monedas</h1>
+    <div class="problem">
+      <p><strong>Problema:</strong></p>
+      <p>
+        Cuando se arrojan simultáneamente <span id="totalCoins">4</span> monedas:
+      </p>
+      <ul>
+        <li>a) ¿Cuáles son los resultados posibles que se pueden obtener? </li>
+        <li>b) ¿Cuántos casos hay en que salgan <span id="totalCaras">2</span> caras y <span id="totalCruces">2</span> cruces?</li>
+      </ul>    
+    </div>
+    <div class="inputs">
+      <label for="numCoins">Número de monedas:</label>
+      <input type="number" id="numCoins" value="4" min="1">
+      <br>
+      <label for="numCaras">Cantidad de caras deseadas:</label>
+      <input type="number" id="numCaras" value="2" min="0">
+      <br>
+      <button id="generateBtn">Generar Resultados</button>
+    </div>
+    <div class="solution">
+      <p id="resultadosPosibles"><strong>Resultados posibles = ?</strong></p>
+      <ul id="outcomesList"></ul>
+      <p id="resultCount"><strong>Casos con la combinación deseada:</strong> ?</p>
+    </div>
+  </div>
+  
+  <script>
+    function generateOutcomes(numCoins) {
+      const totalOutcomes = Math.pow(2, numCoins);
+      const outcomes = [];
+      for (let i = 0; i < totalOutcomes; i++) {
+        let outcome = [];
+        let binary = i.toString(2).padStart(numCoins, '0');
+        for (const bit of binary) {
+          outcome.push(bit === '1' ? "Cara" : "Cruz");
+        }
+        outcomes.push(outcome);
+      }
+      return outcomes;
+    }
+    
+    function countSpecificCaras(outcomes, m) {
+      return outcomes.filter(outcome => outcome.filter(sign => sign === "Cara").length === m).length;
+    }
+    
+    document.getElementById('generateBtn').addEventListener('click', function() {
+      const numCoins = parseInt(document.getElementById('numCoins').value);
+      const numCaras = parseInt(document.getElementById('numCaras').value);
+      
+      if (numCaras > numCoins) {
+        document.getElementById('resultCount').innerHTML = "Error: No puede haber más caras que monedas.";
+        document.getElementById('outcomesList').innerHTML = "";
+        return;
+      }
+      
+      const outcomes = generateOutcomes(numCoins);
+      const outcomesList = document.getElementById('outcomesList');
+      outcomesList.innerHTML = "";
+      
+      outcomes.forEach(outcome => {
+        const li = document.createElement('li');
+        li.textContent = outcome.join(" - ");
+        outcomesList.appendChild(li);
+      });
+      
+      const count = countSpecificCaras(outcomes, numCaras);
+      document.getElementById('resultadosPosibles').innerHTML = `<strong>Resultados posibles = ${Math.pow(2, numCoins)}</strong>`;
+      document.getElementById('totalCoins').textContent = numCoins;
+      document.getElementById('resultCount').innerHTML = `<strong>Casos con ${numCaras} caras:</strong> ${count}`;
+      document.getElementById('totalCaras').textContent = numCaras;
+      document.getElementById('totalCruces').textContent = numCoins - numCaras;
+    });
+  </script>
+</body>
+</html>

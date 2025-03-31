@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Colocación en Fila</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      overflow: auto;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .problem, .inputs, .solution {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .inputs label {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .inputs input {
+      padding: 5px;
+      margin-left: 10px;
+      width: 80px;
+    }
+    .inputs button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .inputs button:hover {
+      background-color: #45a049;
+    }
+    .solution {
+      background: #e6ffe6;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #b3ffb3;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+    }
+    .imagen{
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" id="regresar"><img src="../img/flecha.png" class="imagen"></a>
+    <h1>Colocación en Fila</h1>
+    <div class="problem">
+      <p><strong>Problema:</strong></p>
+      <p>
+        Hay que colocar a <span id="menDisplay">'h'</span> hombres y <span id="womenDisplay">'m'</span> mujeres en una fila de modo que las mujeres ocupen los lugares pares.
+      </p>
+    </div>
+    <div class="inputs">
+      <label for="nMen">Número de hombres (h):</label>
+      <input type="number" id="nMen" value="8" min="1">
+      <br>
+      <label for="nWomen">Número de mujeres (m):</label>
+      <input type="number" id="nWomen" value="7" min="1">
+      <br>
+      <button id="calculateBtn">Calcular</button>
+    </div>
+    <div class="solution">
+      <p><strong>Solución:</strong></p>
+      <p id="result">Resultado: ?</p>
+    </div>
+  </div>
+  
+  <script>
+    // Función para calcular el factorial de un número
+    function factorial(n) {
+      if (n === 0 || n === 1) return 1;
+      let result = 1;
+      for (let i = 2; i <= n; i++) {
+        result *= i;
+      }
+      return result;
+    }
+    
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      const h = parseInt(document.getElementById('nMen').value);
+      const m = parseInt(document.getElementById('nWomen').value);
+      const total = h + m;
+      const evenPositions = Math.floor(total / 2);
+      
+      // Actualizar los valores mostrados en el enunciado
+      document.getElementById('menDisplay').textContent = h;
+      document.getElementById('womenDisplay').textContent = m;
+      
+      // Verificar que las mujeres puedan ocupar todos los lugares pares
+      if (m !== evenPositions) {
+        document.getElementById('result').textContent = `No es posible cumplir la condición. En una fila de ${total} posiciones, hay ${evenPositions} lugares pares, pero se requieren ${m} para las mujeres.`;
+        return;
+      }
+      
+      // Calcular el número de maneras:
+      // Las mujeres se ubican en los lugares pares: m! formas.
+      // Los hombres se ubican en los lugares impares: h! formas.
+      const ways = factorial(m) * factorial(h);
+      
+      // Mostrar el resultado
+      document.getElementById('result').innerHTML = 
+        `Los hombres se pueden acomodar en ${h}! = ${factorial(h)} formas y las mujeres en ${m}! = ${factorial(m)} formas.<br>
+        Total de maneras = ${h}! × ${m}! = <strong>${ways}</strong>`;
+    });
+  </script>
+</body>
+</html>

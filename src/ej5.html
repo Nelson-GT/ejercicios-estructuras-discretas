@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Números de 4 Dígitos con Cifras 1-9</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 20px 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      overflow: auto;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .problem, .inputs, .solution {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .inputs label {
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+    .inputs input {
+      padding: 5px;
+      margin-left: 10px;
+      width: 60px;
+    }
+    .inputs button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .inputs button:hover {
+      background-color: #45a049;
+    }
+    .solution {
+      background: #e6ffe6;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #b3ffb3;
+    }
+    img {
+      width: 30px;
+      height: 30px;
+      top: 20px;
+      left: 20px;
+      text-decoration: none;
+    }
+    .imagen{
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" id="regresar"><img src="../img/flecha.png" class="imagen"></a>
+    <h1>Formación de Números de 4 Dígitos</h1>
+    <div class="problem">
+      <p><strong>Problema:</strong></p>
+      <p>
+        ¿Cuántos números de 'n' dígitos se pueden formar con las cifras 1, 2, …, 9?
+      </p>
+      <ol>
+        <li>Permitiendo repeticiones.</li>
+        <li>Sin repeticiones.</li>
+        <li>Si el último dígito ha de ser 1 y no se permiten repeticiones.</li>
+      </ol>
+    </div>
+    <div class="inputs">
+      <label for="nDigits">Número de dígitos (n):</label>
+      <input type="number" id="nDigits" value="4" min="1">
+      <br>
+      <label for="totalDigits">Total de cifras disponibles:</label>
+      <input type="number" id="totalDigits" value="9" min="1">
+      <br>
+      <button id="calculateBtn">Calcular</button>
+    </div>
+    <div class="solution">
+      <p><strong>Resultados:</strong></p>
+      <p id="resultRep">1. Permitiendo repeticiones: ?</p>
+      <p id="resultNoRep">2. Sin repeticiones: ?</p>
+      <p id="resultLast1">3. Último dígito fijo a 1 y sin repeticiones: ?</p>
+    </div>
+  </div>
+  
+  <script>
+    // Función para calcular el factorial de un número
+    function factorial(n) {
+      if (n === 0 || n === 1) return 1;
+      let result = 1;
+      for (let i = 2; i <= n; i++) {
+        result *= i;
+      }
+      return result;
+    }
+    
+    // Función para calcular la permutación P(n, r)
+    function permutation(n, r) {
+      return factorial(n) / factorial(n - r);
+    }
+    
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      const nDigits = parseInt(document.getElementById('nDigits').value);
+      const totalDigits = parseInt(document.getElementById('totalDigits').value);
+      
+      // Caso 1: Permitiendo repeticiones
+      const case1 = Math.pow(totalDigits, nDigits);
+      
+      // Caso 2: Sin repeticiones
+      // Se utiliza la permutación: P(totalDigits, nDigits)
+      const case2 = permutation(totalDigits, nDigits);
+      
+      // Caso 3: Último dígito fijo a 1 y sin repeticiones
+      // Verificamos que el dígito 1 esté disponible, asumiendo que siempre lo está.
+      // Se fija el último dígito y se disponen los (nDigits - 1) restantes 
+      // de entre (totalDigits - 1) cifras.
+      if (nDigits < 1 || totalDigits < 1 || nDigits > totalDigits) {
+        document.getElementById('resultRep').textContent = 'Valores no válidos.';
+        document.getElementById('resultNoRep').textContent = '';
+        document.getElementById('resultLast1').textContent = '';
+        return;
+      }
+      
+      const case3 = (nDigits > 1) ? permutation(totalDigits - 1, nDigits - 1) : 1;
+      
+      document.getElementById('resultRep').innerHTML = `1. Permitiendo repeticiones: ${totalDigits}<sup>${nDigits}</sup> = <strong>${case1}</strong>`;
+      document.getElementById('resultNoRep').innerHTML = `2. Sin repeticiones: P(${totalDigits}, ${nDigits}) = <strong>${case2}</strong>`;
+      document.getElementById('resultLast1').innerHTML = `3. Último dígito fijo a 1 y sin repeticiones: P(${totalDigits - 1}, ${nDigits - 1}) = <strong>${case3}</strong>`;
+    });
+  </script>
+</body>
+</html>
